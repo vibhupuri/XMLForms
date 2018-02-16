@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,14 +6,16 @@
     <title></title>
     <script src="jquery-3.3.1.min.js"></script>
     <script src="xml2json.js"></script>
+	<script src="jsonify.js"></script>
 </head>
 <body>
   <div>
          <h4>XML:</h4>
 
         <textarea  id="xmlArea" cols="55" rows="15"></textarea>
+		<button onclick="convertXml2JSon()">XML2form</button>
     </div>
-    <form>
+    <form id='form'>
        
     </form>
 </body>
@@ -23,9 +25,16 @@
     <script type="text/javascript" src="lib/jsonform.js"></script>
     <script type="text/javascript">
         var x2js = new X2JS();
-        //function convertXml2JSon() {
-        //   // $("#jsonArea").val(JSON.stringify(x2js.xml_str2json($("#xmlArea").val())));
-        //}
+        function convertXml2JSon() {
+		 
+		 
+           var json = x2js.xml_str2json("<root>"+$("#xmlArea").val()+"</root>").root;
+		   console.log(json);
+		   $("#form").dejsonify({
+  "name": json.name,
+  "age": json.age
+});
+        }
         function convertJSon2XML(values) {
             debugger;
         $("#xmlArea").val(x2js.json2xml_str((values)));
